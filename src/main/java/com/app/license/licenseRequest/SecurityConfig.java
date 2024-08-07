@@ -13,7 +13,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/generateLicenseKey", "/validateLicenseKey").permitAll()  // Allow unauthenticated access to these endpoints
+                        .requestMatchers("api/generateLicenseKey", "api/validateLicenseKey").permitAll()  // Allow unauthenticated access to these endpoints
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable());  // Disable CSRF for simplicity
