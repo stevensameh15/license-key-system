@@ -21,19 +21,20 @@ public class LicenseKeyController {
     }
 
     @GetMapping("/validateLicenseKey")
-    public ResponseEntity<String> validateLicenseKey(@RequestParam String rawLicenseKey,
-                                                     @RequestParam String accessKey1,
-                                                     @RequestParam String accessKey2,
-                                                     @RequestParam String accessKey3) {
+    public ResponseEntity<String> validateLicenseKey(
+            @RequestParam String rawLicenseKey,
+            @RequestParam String accessKey1,
+            @RequestParam String accessKey2,
+            @RequestParam String accessKey3) {
         try {
             boolean isValid = licenseKeyService.validateLicenseKey(rawLicenseKey, accessKey1, accessKey2, accessKey3);
-            if (isValid){
+            if (isValid) {
                 return ResponseEntity.ok("License key is valid.");
-            }else{
+            } else {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid license key or access keys.");
             }
-        }catch (ResponseStatusException e){
-            throw e;
+        } catch (ResponseStatusException e) {
+            throw e; // Propagate the exception to let Spring handle it
         }
     }
 }
